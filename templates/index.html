@@ -1,279 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Arfan nur Ivandi</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7369477489373926"
-     crossorigin="anonymous"></script>
-
-    <!-- Link CSS -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/open-iconic-bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.theme.default.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/magnific-popup.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/aos.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/ionicons.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-datepicker.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.timepicker.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/flaticon.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/icomoon.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arfan Media Downloader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* CSS untuk animasi loading */
-        #loading {
-            display: none;
-            margin-top: 20px;
-            font-size: 18px;
-            color: #555;
+        /* Custom Loading Animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-
-        #loading::after {
-            content: '...';
-            animation: ellipsis 1.5s infinite;
+        .loader {
+            border-top-color: #3B82F6;
+            animation: spin 1s linear infinite;
         }
-
-        @keyframes ellipsis {
-            0% { content: '...'; }
-            33% { content: ''; }
-            66% { content: '..'; }
-            100% { content: '...'; }
+        
+        /* Background Canvas Styles */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
         }
-
-        #downloadLink {
-            margin-top: 20px;
-        }
-
-        video {
-            display: block;
-            margin-top: 20px;
-            max-width: 100%;
-        }
-
-        button {
-            margin-top: 10px;
+        body {
+            background: linear-gradient(to bottom, #e0f2ff, #ffffff);
+    height: 100vh;
+    margin: 0;
+            overflow-x: hidden;
         }
     </style>
-
-    <div id="colorlib-page">
-        <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
-        <aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
-            <h1 id="colorlib-logo"><a href="https://arfanivan.my.id">Arfan<span>.</span></a></h1>
-            <nav id="colorlib-main-menu" role="navigation">
-                <ul>
-                    <li class=""><a href="https://arfanivan.my.id">Home</a></li>
-                    <li><a href="https://arfanivan.my.id/ilustrasi">Ilustrasi</a></li>
-                    <li><a href="https://arfanivan.my.id/">Website</a></li>
-                    <li><a href="https://arfanivan.my.id/">Project</a></li>
-                    <li><a href="https://arfanivan.my.id/tentangsaya">Tentang Saya</a></li>
-                </ul>
-            </nav>
-
-            <div class="colorlib-footer">
-                <p><i class="icon-heart" aria-hidden="true"> </i><a href="https://www.instagram.com/4rfan_vn/" target="_blank">4rfan_vn</a></p>
-                <ul>
-                    <li><a href="#"><i class="icon-facebook"></i></a></li>
-                    <li><a href="#"><i class="icon-twitter"></i></a></li>
-                    <li><a href="#"><i class="icon-instagram"></i></a></li>
-                    <li><a href="#"><i class="icon-linkedin"></i></a></li>
-                </ul>
-            </div>
-        </aside> <!-- END COLORLIB-ASIDE -->
-        <div id="colorlib-main">
-            <section class="ftco-section contact-section">
-                <div class="container">
-                    <div class="row d-flex mb-5 contact-info">
-                        <div class="col-md-12 mb-4">
-                            <h2 class="h4 font-weight-bold">Unduh Gambar, Video, dan Audio Dari Multiplatform Termasuk Youtube, Instagram, Facebook, dan TikTok</h2>
-                        </div>
-                    </div>
-                    <div class="row block-9">
-                        <div class="col-md-6 order-md-last pr-md-5">
-                            <form id="downloadForm">
-                                <div class="form-group">
-                                    <input style="width: 100%" type="text" id="video_url" name="video_url" placeholder="Paste URL video disini" required>
-                                </div>
-                                <div class="form-group">
-                                    <input type="checkbox" id="download_image" name="download_image">
-                                    <label for="download_image">Download gambar</label>
-                                </div>
-                                <div class="form-group">
-                                    <input type="checkbox" id="download_audio" name="download_audio">
-                                    <label for="download_audio">Download hanya audio (MP3)</label>
-                                </div>
-                                <div class="form-group">
-                                    <input type="checkbox" id="download_video" name="download_video">
-                                    <label for="download_video">Download video</label>
-                                </div>
-				<div class="form-group">
-                                    <label for="resolution">Pilih Resolusi:</label>
-                                    <select id="resolution" name="resolution" disabled>
-                                        <option value="best">Pilih Resolusi</option>
-                                        <option value="bytevc1_1080p_834143-0">1080p</option>
-                                        <option value="bytevc1_720p_638433-0">720p</option>
-                                        <option value="h264_540p_1235601-0">540p</option>
-                                    </select>
-                                </div>
-                                <div id="loading">Memindai Konten</div> <!-- Animasi Loading -->
-                                <div id="downloadLink"></div>
-				<br>
-                                <div class="form-group">
-                                    <input type="submit" value="Generate" class="btn btn-primary py-3 px-5">
-					<br>
-                                    <p><small>Silahkan pilih Resolusi untuk menghindari error, dan Apabila loading terlalu lama, silahkan refresh halaman, dan tunggu beberapa detik, <i>khusus untuk file video proses pengumpulan informasi akan memakan waktu sedikit lebih lama, karena ukuran file yang di download, untuk mendownload file ukurang yang lebih besar silahkan download dari menu pada titik 3 di dalam preview video</i></small></p>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-md-6">
-                            <audio id="audioPreview" controls style="display:none;">
-                                Your browser does not support the audio element.
-                            </audio>                            
-                            <img id="imagePreview" style="display:none; max-width: 100%; height: auto;" alt="Preview Image" />
-                            <video style="width: 100%" id="videoPreview" controls></video> <!-- Video Preview -->
-                        </div>
-                    </div>
-                </div>
-            </section>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <canvas id="backgroundCanvas"></canvas>
+    <div class="bg-white bg-opacity-60 shadow-2xl rounded-xl w-full max-w-md p-6 relative z-10">
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-blue-600">Media Downloader</h1>
+            <p class="text-gray-500 mt-2">Download video, audio, dan Gambar Dari Berbagai Platform</p>
         </div>
+
+        <form id="downloaderForm" class="space-y-4">
+            <div>
+                <label for="videoUrl" class="block text-sm font-medium text-gray-700">Video/Media URL</label>
+                <div class="mt-1 flex">
+                    <input 
+                        type="url" 
+                        id="videoUrl" 
+                        required 
+                        placeholder="Paste your video URL here" 
+                        class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 mb-4">
+                <div class="flex items-center">
+                    <input 
+                        type="radio" 
+                        id="downloadVideo" 
+                        name="downloadType" 
+                        value="video" 
+                        class="mr-2"
+                        checked
+                    >
+                    <label for="downloadVideo" class="text-sm">Video</label>
+                </div>
+                <div class="flex items-center">
+                    <input 
+                        type="radio" 
+                        id="downloadAudio" 
+                        name="downloadType" 
+                        value="audio" 
+                        class="mr-2"
+                    >
+                    <label for="downloadAudio" class="text-sm">Audio</label>
+                </div>
+                <div class="flex items-center">
+                    <input 
+                        type="radio" 
+                        id="downloadImage" 
+                        name="downloadType" 
+                        value="image" 
+                        class="mr-2"
+                    >
+                    <label for="downloadImage" class="text-sm">Image</label>
+                </div>
+            </div>
+
+            <div id="resolutionContainer" class="space-y-2">
+                <label for="resolution" class="block text-sm font-medium text-gray-700">Resolution</label>
+                <select 
+                    id="resolution" 
+                    class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                    <option value="">Auto</option>
+                    <option value="1080">1080p</option>
+                    <option value="720">720p</option>
+                    <option value="480">480p</option>
+                    <option value="360">360p</option>
+                </select>
+            </div>
+
+            <button 
+                type="button" 
+                id="generatePreviewBtn"
+                class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-300 flex items-center justify-center"
+            >
+                <i class="fas fa-play-circle mr-2"></i> Generate Preview
+            </button>
+        </form>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+            <div class="bg-white p-6 rounded-xl shadow-2xl text-center">
+                <div class="w-16 h-16 border-4 border-gray-200 border-t-blue-600 rounded-full loader mx-auto mb-4"></div>
+                <p id="loadingMessage" class="text-gray-700 font-semibold">Generating preview...</p>
+            </div>
+        </div>
+
+        <div id="previewContainer" class="mt-6 hidden">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">Preview</h2>
+            <div id="previewContent" class="p-4 rounded-md">
+                <img id="previewImage" class="max-w-full max-h-64 object-contain mx-auto hidden" alt="Preview">
+                <video id="previewVideo" controls class="max-w-full max-h-auto hidden"></video>
+                <audio id="previewAudio" controls class="w-full hidden"></audio>
+                <p id="previewMessage" class="text-center text-gray-600"></p>
+            </div>
+
+            <div id="downloadButtonContainer" class="mt-4 hidden">
+                <button 
+                    id="downloadBtn"
+                    class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition duration-300 flex items-center justify-center"
+                >
+                    <i class="fas fa-download mr-2"></i> Download
+                </button>
+            </div>
+        </div>
+        <footer style="text-align: center;">
+            <p><small>&copy; <span id="year"></span> Arfanvn. All Rights Reserved.</small></p>
+            <script>
+                document.getElementById("year").textContent = new Date().getFullYear();
+            </script>
+        </footer>
     </div>
 
-    <!-- Include JS files -->
     <script>
-        function updateFormState() {
-            const downloadImage = document.getElementById('download_image').checked;
-            const downloadAudio = document.getElementById('download_audio').checked;
-            const downloadVideo = document.getElementById('download_video').checked;
-            const resolution = document.getElementById('resolution');
-            const generateButton = document.querySelector('input[type="submit"]');
-    
-            if (downloadImage) {
-                document.getElementById('download_audio').checked = false;
-                document.getElementById('download_video').checked = false;
-                resolution.disabled = true;
-            } else if (downloadAudio) {
-                document.getElementById('download_image').checked = false;
-                document.getElementById('download_video').checked = false;
-                resolution.disabled = true;
-            } else if (downloadVideo) {
-                resolution.disabled = false;
-            } else {
-                resolution.disabled = true;
-            }
-    
-            // Aktifkan atau nonaktifkan tombol "Generate" berdasarkan apakah salah satu checkbox tercentang
-            if (downloadImage || downloadAudio || downloadVideo) {
-                generateButton.disabled = false;
-            } else {
-                generateButton.disabled = true;
-            }
-        }
-    
-        document.getElementById('download_image').addEventListener('change', updateFormState);
-        document.getElementById('download_audio').addEventListener('change', updateFormState);
-        document.getElementById('download_video').addEventListener('change', updateFormState);
-    
-        document.getElementById('downloadForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-    
-            // Tampilkan animasi loading
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('downloadLink').innerHTML = '';
-            document.getElementById('videoPreview').style.display = 'none';
-            document.getElementById('imagePreview').style.display = 'none';
-            document.getElementById('audioPreview').style.display = 'none';  // Hide audio preview initially
-    
-            const videoUrl = document.getElementById('video_url').value;
-            const resolution = document.getElementById('resolution').value;
-            const downloadAudio = document.getElementById('download_audio').checked;
-            const downloadImage = document.getElementById('download_image').checked;
-            const downloadVideo = document.getElementById('download_video').checked;
-    
-            fetch('/download', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    video_url: videoUrl,
-                    resolution: resolution,
-                    download_audio: downloadAudio,
-                    download_image: downloadImage,
-                    download_video: downloadVideo
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('loading').style.display = 'none';
-    
-                if (data.status === 'success') {
-                    const downloadLink = document.createElement('a');
-                    downloadLink.href = data.file_url;
-                    downloadLink.textContent = 'Klik di sini untuk Mendownload';
-                    downloadLink.download = true;
-    
-                    document.getElementById('downloadLink').appendChild(downloadLink);
-    
-                    if (downloadVideo) {
-                        const videoPreview = document.getElementById('videoPreview');
-                        videoPreview.src = data.file_url;
-                        videoPreview.style.display = 'block';
-                        document.getElementById('imagePreview').style.display = 'none';
-                        document.getElementById('audioPreview').style.display = 'none';
-                    }
-    
-                    if (downloadImage) {
-                        const imagePreview = document.getElementById('imagePreview');
-                        imagePreview.src = data.file_url;
-                        imagePreview.style.display = 'block';
-                        document.getElementById('videoPreview').style.display = 'none';
-                        document.getElementById('audioPreview').style.display = 'none';
-                    }
-    
-                    if (downloadAudio) {
-                        const audioPreview = document.getElementById('audioPreview');
-                        audioPreview.src = data.file_url;
-                        audioPreview.style.display = 'block';
-                        document.getElementById('videoPreview').style.display = 'none';
-                        document.getElementById('imagePreview').style.display = 'none';
-                    }
-                } else {
-                    document.getElementById('downloadLink').textContent = data.message;
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById("backgroundCanvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            class Block {
+                constructor(x, y, width, height, speedY, color, rotationSpeed) {
+                    this.x = x;
+                    this.y = y;
+                    this.width = width;
+                    this.height = height;
+                    this.speedY = speedY;
+                    this.color = color;
+                    this.rotation = Math.random() * Math.PI * 2;
+                    this.rotationSpeed = rotationSpeed;
+                    this.speedX = 0;
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('downloadLink').textContent = 'Gagal memproses permintaan. Silakan coba lagi.';
+
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+                    ctx.rotate(this.rotation);
+                    ctx.fillStyle = this.color;
+                    ctx.globalAlpha = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(-this.width / 2, -this.height / 2);
+                    ctx.lineTo(this.width / 2, -this.height / 2 + 10);
+                    ctx.lineTo(this.width / 2 - 10, this.height / 2);
+                    ctx.lineTo(-this.width / 2 + 10, this.height / 2 - 10);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.restore();
+                }
+
+                update() {
+                    this.y += this.speedY;
+                    this.rotation += this.rotationSpeed;
+
+                    if (this.y > canvas.height) {
+                        this.y = -this.height;
+                        this.x = Math.random() * canvas.width;
+                        this.speedY = Math.random() * 2 + 1;
+                    }
+                }
+            }
+
+            let blocks = [];
+            for (let i = 0; i < 90; i++) {
+                let size = Math.random() * 80 + 20;
+                let x = Math.random() * canvas.width;
+                let y = -Math.random() * canvas.height;
+                let speedY = Math.random() * 2 + 1;
+                let color = `rgba(${Math.random() * 30}, ${100 + Math.random() * 80}, ${180 + Math.random() * 75}, 0.5)`;
+                let rotationSpeed = (Math.random() - 0.5) * 0.02;
+                blocks.push(new Block(x, y, size, size, speedY, color, rotationSpeed));
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                blocks.forEach(block => {
+                    block.update();
+                    block.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            window.addEventListener("resize", () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+
+            // Existing JavaScript code from previous implementation...
+            const form = document.getElementById('downloaderForm');
+            const videoUrl = document.getElementById('videoUrl');
+            const downloadTypeRadios = document.querySelectorAll('input[name="downloadType"]');
+            const resolutionContainer = document.getElementById('resolutionContainer');
+            const generatePreviewBtn = document.getElementById('generatePreviewBtn');
+            const previewContainer = document.getElementById('previewContainer');
+            const previewImage = document.getElementById('previewImage');
+            const previewVideo = document.getElementById('previewVideo');
+            const previewAudio = document.getElementById('previewAudio');
+            const previewMessage = document.getElementById('previewMessage');
+            const downloadButtonContainer = document.getElementById('downloadButtonContainer');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const loadingMessage = document.getElementById('loadingMessage');
+
+            let generatedFileUrl = null;
+
+            downloadTypeRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    resolutionContainer.style.display = this.value === 'video' ? 'block' : 'none';
+                });
+            });
+
+            function showLoading(message = 'Generating preview...') {
+                loadingMessage.textContent = message;
+                loadingOverlay.classList.remove('hidden');
+            }
+
+            function hideLoading() {
+                loadingOverlay.classList.add('hidden');
+            }
+
+            generatePreviewBtn.addEventListener('click', async function() {
+                const downloadType = document.querySelector('input[name="downloadType"]:checked').value;
+                const resolution = document.getElementById('resolution').value;
+
+                previewImage.src = '';
+                previewVideo.src = '';
+                previewAudio.src = '';
+                previewImage.classList.add('hidden');
+                previewVideo.classList.add('hidden');
+                previewAudio.classList.add('hidden');
+                previewMessage.textContent = '';
+                downloadButtonContainer.classList.add('hidden');
+                previewContainer.classList.remove('hidden');
+
+                showLoading('Generating preview...');
+
+                try {
+                    const response = await fetch('/download', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            video_url: videoUrl.value,
+                            resolution: resolution,
+                            download_audio: downloadType === 'audio',
+                            download_image: downloadType === 'image'
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.status === 'success') {
+                        generatedFileUrl = result.file_url;
+                        switch (downloadType) {
+                            case 'video': previewVideo.src = generatedFileUrl; previewVideo.classList.remove('hidden'); break;
+                            case 'audio': previewAudio.src = generatedFileUrl; previewAudio.classList.remove('hidden'); break;
+                            case 'image': previewImage.src = generatedFileUrl; previewImage.classList.remove('hidden'); break;
+                        }
+                        downloadButtonContainer.classList.remove('hidden');
+                        showLoading('Preview ready!');
+                    } else {
+                        previewMessage.textContent = result.message || 'Preview generation failed';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    previewMessage.textContent = 'An error occurred during preview generation';
+                } finally {
+                    hideLoading();
+                }
+            });
+
+            downloadBtn.addEventListener('click', function() {
+                if (generatedFileUrl) {
+                    showLoading('Preparing download...');
+                    const a = document.createElement('a');
+                    a.href = generatedFileUrl;
+                    a.download = '';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    setTimeout(() => hideLoading(), 1500);
+                } else {
+                    alert('No file available for download. Please generate preview first.');
+                }
             });
         });
-    
-        // Initialize form state on page load
-        updateFormState();
-    </script> 
 
-    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery-migrate-3.0.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.easing.1.3.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.stellar.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/aos.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.animateNumber.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.timepicker.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/scrollax.min.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="{{ url_for('static', filename='js/google-map.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
+    </script>
 </body>
 </html>
